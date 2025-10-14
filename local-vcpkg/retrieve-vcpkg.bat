@@ -1,5 +1,5 @@
 
-if not exist vcpkg\.vcpkg-root ( git submodule add https://github.com/microsoft/vcpkg.git ) ELSE ( git submodule update )
+if not exist vcpkg\.vcpkg-root ( git submodule init && git submodule update )
 
 if exist vcpkg\NUL (
    cd vcpkg
