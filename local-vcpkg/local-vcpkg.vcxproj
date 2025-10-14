@@ -21,32 +21,32 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e000743d-ee8a-4289-a4e7-61c180200540}</ProjectGuid>
-    <RootNamespace>PassAppleTest</RootNamespace>
+    <ProjectGuid>{532aa36c-cb52-4cec-a73c-7bb2c1369090}</ProjectGuid>
+    <RootNamespace>localvcpkg</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -76,14 +76,28 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)local-vcpkg\vcpkg\installed\x86-windows\include;$(ProjectDir)local-vcpkg\vcpkg\installed\x86-windows\include\opencv2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)local-vcpkg\vcpkg\installed\x86-windows\debug\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);opencv_core2d.lib;opencv_highgui2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>
+      </Message>
+    </CustomBuildStep>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)retrieve-vcpkg.bat</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>vcpkg をダウンロードして、opencv2 を構築します。この処理には初回のみ20分程度の時間がかかります。</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)vcpkg\installed\x86-windows\debug\bin\*.dll $(OutputPath) </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -93,14 +107,28 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)local-vcpkg\vcpkg\installed\x86-windows\include;$(ProjectDir)local-vcpkg\vcpkg\installed\x86-windows\include\opencv2.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)local-vcpkg\vcpkg\installed\x86-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_core2.lib;opencv_highgui2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>
+      </Message>
+    </CustomBuildStep>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)retrieve-vcpkg.bat</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>vcpkg をダウンロードして、opencv2 を構築します。この処理には初回のみ20分程度の時間がかかります。</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)vcpkg\installed\x86-windows\bin\*.dll $(OutputPath) </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -108,14 +136,28 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)local-vcpkg\vcpkg\installed\x64-windows\include;$(ProjectDir)local-vcpkg\vcpkg\installed\x64-windows\include\opencv2.4</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)local-vcpkg\vcpkg\installed\x64-windows\debug\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);opencv_core2d.lib;opencv_highgui2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>
+      </Message>
+    </CustomBuildStep>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)retrieve-vcpkg.bat</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>vcpkg をダウンロードして、opencv2 を構築します。この処理には初回のみ20分程度の時間がかかります。</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)vcpkg\installed\x64-windows\debug\bin\*.dll $(OutputPath) </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -125,21 +167,30 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)local-vcpkg\vcpkg\installed\x64-windows\include;$(ProjectDir)local-vcpkg\vcpkg\installed\x64-windows\include\opencv2.4</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)local-vcpkg\vcpkg\installed\x64-windows\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_core2.lib;opencv_highgui2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <CustomBuildStep>
+      <Command>
+      </Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Message>
+      </Message>
+    </CustomBuildStep>
+    <PreBuildEvent>
+      <Command>$(ProjectDir)retrieve-vcpkg.bat</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>vcpkg をダウンロードして、opencv2 を構築します。この処理には初回のみ20分程度の時間がかかります。</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy $(ProjectDir)vcpkg\installed\x64-windows\bin\*.dll $(OutputPath) </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="PassAppleTest.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Downloads\apple_before.png" />
-    <Image Include="..\..\..\Downloads\input.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
