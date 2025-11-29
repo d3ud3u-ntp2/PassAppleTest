@@ -135,11 +135,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AppleImageChanger.cpp" />
     <ClCompile Include="PassAppleTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\Downloads\apple_before.png" />
     <Image Include="..\..\..\Downloads\input.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AppleImageChanger.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <opencv2/opencv.hpp>
+#include "AppleImageChanger.h"
 
 /*
 ■■■ 概要
@@ -15,16 +16,14 @@ int main()
         return 1;
     }
 
-    // 確認（8bit 3チャンネルであること）
-    if (inputColor.type() != CV_8UC3) {
-        std::cerr << "警告: 期待する画像形式は CV_8UC3（8bit 3チャンネル）です。type=" << inputColor.type() << std::endl;
+    // 反転処理を外部関数に委譲
+    cv::Mat inverted;
+    if (!AppleImageChanger(inputColor, inverted)) {
+        std::cerr << "画像反転に失敗しました。" << std::endl;
+        return 1;
     }
 
-    // 画素反転処理（各チャンネルごとに 255 - 値）
-    cv::Mat inverted;
-    cv::bitwise_not(inputColor, inverted); // 各チャンネルを反転する
-
-    // 反転結果を保存（inverted を保存することに注意）
+    // 反転結果を保存
     if (!cv::imwrite("./output_img/apple_after.png", inverted)) {
         std::cerr << "apple_after.pngの保存に失敗しました。" << std::endl;
         return 1;
