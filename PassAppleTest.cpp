@@ -16,13 +16,17 @@ int main()
         return 1;
     }
 
+    // 確認（8bit 3チャンネルであること）
+    if (inputColor.type() != CV_8UC3) {
+        std::cerr << "警告: 期待する画像形式は CV_8UC3（8bit 3チャンネル）です。type=" << inputColor.type() << std::endl;
+    }
+
     //// 画素反転処理（255 - ピクセル値）
-    //cv::Mat inverted;
-    //cv::bitwise_not(inputColor, inverted); // OpenCVのbitwise_notでカラー反転
+    cv::Mat inverted;
+    cv::bitwise_not(inputColor, inverted); // OpenCVのbitwise_notでカラー反転
 
     // 出力画像（apple_after.png）として保存
-    if (!cv::imwrite("apple_after.png", inputColor)) {
-    //if (!cv::imwrite("apple_after.png", inverted)) {
+    if (!cv::imwrite("apple_after.png", inverted)) {
             std::cerr << "apple_after.pngの保存に失敗しました。" << std::endl;
         return 1;
     }
