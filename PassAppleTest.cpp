@@ -10,9 +10,9 @@
 int main()
 {
     // カラーで読み込む（IMREAD_COLOR を使う）
-    cv::Mat inputColor = cv::imread("./resource_img/input.png", cv::IMREAD_COLOR);
+    cv::Mat inputColor = cv::imread("./resource_img/apple_input.jpg", cv::IMREAD_COLOR);
     if (inputColor.empty()) {
-        std::cerr << "input.pngの読み込みに失敗しました。" << std::endl;
+        std::cerr << "apple_input.jpgの読み込みに失敗しました。" << std::endl;
         return 1;
     }
 
